@@ -9,6 +9,11 @@
     <name>haro-mq</name>
     <description>消息中间件学习</description>
 
+    <modules>
+        <module>rabbit-mq</module>
+        <module>kafka</module>
+    </modules>
+
     <properties>
         <!-- spring -->
         <spring-boot.version>2.6.11</spring-boot.version>
@@ -20,7 +25,6 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
-        <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
         <!-- 项目构建 相关 -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -41,13 +45,38 @@
                 <artifactId>hutool-all</artifactId>
                 <version>${hutool.version}</version>
             </dependency>
+
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
+                <optional>true</optional>
             </dependency>
         </dependencies>
     </dependencyManagement>
 
+    <build>
+        <!-- 插件管理 初始化配置-->
+        <pluginManagement>
+            <plugins>
+                <!-- maven-surefire-plugin 插件，用于运行单元测试。 -->
+                <!-- 注意，需要使用 3.0.X+，因为要支持 Junit 5 版本 -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven-surefire-plugin.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <!-- 使用 aliyun 的 Maven 源，提升下载速度 -->
+    <repositories>
+        <repository>
+            <id>aliyunmaven</id>
+            <name>aliyun</name>
+            <url>https://maven.aliyun.com/repository/public</url>
+        </repository>
+    </repositories>
 
 </project>
