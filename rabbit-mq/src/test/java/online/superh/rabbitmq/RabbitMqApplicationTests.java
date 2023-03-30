@@ -8,6 +8,7 @@ class RabbitMqApplicationTests {
 
     @Test
     void contextLoads() {
+        System.out.println("Hello world");
     }
 
 }
