@@ -1,4 +1,4 @@
-package online.superh.rabbitmq.mqnative.direct;
+package online.superh.rabbitmq.mqnative;
 
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;

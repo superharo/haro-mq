@@ -1,8 +1,9 @@
-package online.superh.rabbitmq.mqnative.direct.consumer;
+package online.superh.rabbitmq.mqnative.topic.consumer;
 
 import com.rabbitmq.client.*;
 import online.superh.rabbitmq.mqnative.RabbitMQUtil;
-import online.superh.rabbitmq.mqnative.direct.producer.DirectProducer;
+import online.superh.rabbitmq.mqnative.topic.TopicExChange;
+import online.superh.rabbitmq.mqnative.topic.TopicQueue;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -12,21 +13,20 @@ import java.util.concurrent.TimeoutException;
 /**
  * @version: 1.0
  * @author: haro
- * @description: 消费者
- * @date: 2023-03-30 17:03
+ * @description: topic交换器-消费者
+ * @date: 2023-03-31 11:11
  */
-public class NormalConsumer {
+public class TopicConsumer {
 
     public static void main(String[] args) throws IOException, TimeoutException {
         Channel channel = RabbitMQUtil.getChannel();
         //声明交换器
-        channel.exchangeDeclare(DirectProducer.EXCHANGE_NAME, BuiltinExchangeType.DIRECT);
+        channel.exchangeDeclare(TopicExChange.name, BuiltinExchangeType.TOPIC);
         //设置队列
-        String queueName = "haroqueue001";
-        channel.queueDeclare(queueName,false,false,false,null);
+        channel.queueDeclare(TopicQueue.HARO_TEST_TOPIC_QUEUE_NAME,false,false,false,null);
         //绑定路由键
-        String routeKey ="haro";
-        channel.queueBind(queueName,DirectProducer.EXCHANGE_NAME,routeKey);
+        String routeKey ="haro_topic.*";
+        channel.queueBind(TopicQueue.HARO_TEST_TOPIC_QUEUE_NAME,TopicExChange.name,routeKey);
         //声明消费者
         Consumer consumer = new DefaultConsumer(channel) {
             @Override
@@ -37,7 +37,8 @@ public class NormalConsumer {
         };
         System.out.println("waiting for msg ......");
         //消费者绑定队列消费 (自动提交)
-        channel.basicConsume(queueName,true,consumer);
+        //消息发送后立即被认为已经传送成功
+        channel.basicConsume(TopicQueue.HARO_TEST_TOPIC_QUEUE_NAME,true,consumer);
     }
-
+    
 }

@@ -1,4 +1,4 @@
-package online.superh.rabbitmq.mqnative.direct.consumer;
+package online.superh.rabbitmq.mqnative.ack.producer.back_excahnge;
 
 import com.rabbitmq.client.*;
 import online.superh.rabbitmq.mqnative.RabbitMQUtil;
@@ -20,7 +20,7 @@ public class NormalConsumer {
     public static void main(String[] args) throws IOException, TimeoutException {
         Channel channel = RabbitMQUtil.getChannel();
         //声明交换器
-        channel.exchangeDeclare(DirectProducer.EXCHANGE_NAME, BuiltinExchangeType.DIRECT);
+        // channel.exchangeDeclare(DirectProducer.EXCHANGE_NAME, BuiltinExchangeType.DIRECT);
         //设置队列
         String queueName = "haroqueue001";
         channel.queueDeclare(queueName,false,false,false,null);

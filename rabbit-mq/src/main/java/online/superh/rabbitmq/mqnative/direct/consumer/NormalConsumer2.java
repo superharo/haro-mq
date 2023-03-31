@@ -1,7 +1,7 @@
 package online.superh.rabbitmq.mqnative.direct.consumer;
 
 import com.rabbitmq.client.*;
-import online.superh.rabbitmq.mqnative.direct.RabbitMQUtil;
+import online.superh.rabbitmq.mqnative.RabbitMQUtil;
 import online.superh.rabbitmq.mqnative.direct.producer.DirectProducer;
 
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package online.superh.rabbitmq.mqnative.direct.consumer;
+package online.superh.rabbitmq.mqnative.ack.producer.back_excahnge;
 
 import com.rabbitmq.client.*;
 import online.superh.rabbitmq.mqnative.RabbitMQUtil;
@@ -12,21 +12,21 @@ import java.util.concurrent.TimeoutException;
 /**
  * @version: 1.0
  * @author: haro
- * @description: 消费者
- * @date: 2023-03-30 17:03
+ * @description: 备用机换消费者
+ * @date: 2023-03-31 14:14
  */
-public class NormalConsumer {
+public class Backup_Exchange_Consumer {
 
     public static void main(String[] args) throws IOException, TimeoutException {
         Channel channel = RabbitMQUtil.getChannel();
         //声明交换器
-        channel.exchangeDeclare(DirectProducer.EXCHANGE_NAME, BuiltinExchangeType.DIRECT);
+        // channel.exchangeDeclare(online.superh.rabbitmq.mqnative.direct.producer.DirectProducer.EXCHANGE_BACK_NAME, BuiltinExchangeType.DIRECT);
         //设置队列
-        String queueName = "haroqueue001";
+        String queueName = "haroqueue001_back_up";
         channel.queueDeclare(queueName,false,false,false,null);
         //绑定路由键
-        String routeKey ="haro";
-        channel.queueBind(queueName,DirectProducer.EXCHANGE_NAME,routeKey);
+        String routeKey ="haro_back";
+        channel.queueBind(queueName, DirectProducer.EXCHANGE_BACK_NAME,routeKey);
         //声明消费者
         Consumer consumer = new DefaultConsumer(channel) {
             @Override

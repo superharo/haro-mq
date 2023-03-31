@@ -2,7 +2,7 @@ package online.superh.rabbitmq.mqnative.direct.producer;
 
 import com.rabbitmq.client.BuiltinExchangeType;
 import com.rabbitmq.client.Channel;
-import online.superh.rabbitmq.mqnative.direct.RabbitMQUtil;
+import online.superh.rabbitmq.mqnative.RabbitMQUtil;
 
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
@@ -26,6 +26,8 @@ public class DirectProducer {
      */
 
     public static final String EXCHANGE_NAME = "direct_exchange";
+
+    public static final String EXCHANGE_BACK_NAME = "direct_back_exchange";
 
     public static void main(String[] args) throws IOException, TimeoutException {
         Channel channel = RabbitMQUtil.getChannel();

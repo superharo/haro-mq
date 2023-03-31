@@ -1,8 +1,10 @@
-package online.superh.rabbitmq.mqnative.direct.consumer;
+package online.superh.rabbitmq.mqnative.fanout.consumer;
 
 import com.rabbitmq.client.*;
+import lombok.extern.slf4j.Slf4j;
 import online.superh.rabbitmq.mqnative.RabbitMQUtil;
-import online.superh.rabbitmq.mqnative.direct.producer.DirectProducer;
+import online.superh.rabbitmq.mqnative.fanout.FanoutExChange;
+import online.superh.rabbitmq.mqnative.fanout.FanoutQueue;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -12,21 +14,21 @@ import java.util.concurrent.TimeoutException;
 /**
  * @version: 1.0
  * @author: haro
- * @description: 消费者
- * @date: 2023-03-30 17:03
+ * @description: Fanout交换器-消费者
+ * @date: 2023-03-31 9:34
  */
-public class NormalConsumer {
+@Slf4j
+public class FanoutConsumer2 {
 
     public static void main(String[] args) throws IOException, TimeoutException {
         Channel channel = RabbitMQUtil.getChannel();
         //声明交换器
-        channel.exchangeDeclare(DirectProducer.EXCHANGE_NAME, BuiltinExchangeType.DIRECT);
+        channel.exchangeDeclare(FanoutExChange.name, BuiltinExchangeType.FANOUT);
         //设置队列
-        String queueName = "haroqueue001";
-        channel.queueDeclare(queueName,false,false,false,null);
-        //绑定路由键
-        String routeKey ="haro";
-        channel.queueBind(queueName,DirectProducer.EXCHANGE_NAME,routeKey);
+        channel.queueDeclare(FanoutQueue.HARO_FANOUT_TEST02_QUEUE,false,false,false,null);
+        //绑定路由键 ，没有任何影响（广播机制）
+        String routeKey ="haro_fanout2";
+        channel.queueBind(FanoutQueue.HARO_FANOUT_TEST02_QUEUE,FanoutExChange.name,routeKey);
         //声明消费者
         Consumer consumer = new DefaultConsumer(channel) {
             @Override
@@ -37,7 +39,7 @@ public class NormalConsumer {
         };
         System.out.println("waiting for msg ......");
         //消费者绑定队列消费 (自动提交)
-        channel.basicConsume(queueName,true,consumer);
+        channel.basicConsume(FanoutQueue.HARO_FANOUT_TEST02_QUEUE,true,consumer);
     }
 
 }
