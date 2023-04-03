@@ -5,5 +5,25 @@ spring:
     name: haro-rabbitmq
   profiles:
     active: dev
-
-
+  #配置rabbitMq 服务器
+  rabbitmq:
+    host: 10.0.0.8
+    port: 5672
+    username: admin
+    password: admin
+    #虚拟host 可以不设置,使用server默认host
+#    virtual-host: TestHost
+    #确认消息已发送到交换机(Exchange)
+    #publisher-confirms: true
+    publisher-confirm-type: correlated
+    #确认消息已发送到队列(Queue)
+    publisher-returns: true
+    listener:
+      simple:
+        # 开启spring提供的retry(重试机制)
+        retry:
+          enabled: true
+          max-attempts: 5
+          initial-interval: 3000
+        #消息确认模式即应答模式，auto自动确认，manual手动确认,默认none无ack默认（就是消息不需要确认）
+        acknowledge-mode: auto
