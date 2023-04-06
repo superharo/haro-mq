@@ -1,0 +1,26 @@
+#kafka配置
+Spring:
+  kafka:
+    bootstrap-servers: 10.0.0.8:9092
+    listener:
+      #手动提交
+      ack-mode: manual_immediate
+      #批量模式
+      type: batch
+    producer: # producer 生产者
+      retries: 5 # 重试次数
+      acks: 1 # 应答级别:多少个分区副本备份完成时向生产者发送ack确认(可选0、1、all/-1)
+      batch-size: 16384 # 批量大小
+      buffer-memory: 33554432 # 生产端缓冲区大小
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer: # consumer消费者
+      group-id: exsi-test # 默认的消费组ID
+      #关闭自动提交，手动批量提交
+      enable-auto-commit: false # 是否自动提交offset
+      auto-commit-interval: 100  # 提交offset延时(接收到消息后多久提交offset)(单位：毫秒)
+      #批量拉取
+      max-poll-records: 10
+      auto-offset-reset: latest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer

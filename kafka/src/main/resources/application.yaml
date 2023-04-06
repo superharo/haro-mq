@@ -1,1 +1,8 @@
-
+server:
+  port: 8081
+spring:
+  application:
+    name: haro-kafka
+  profiles:
+    active: test
+#kafka配置

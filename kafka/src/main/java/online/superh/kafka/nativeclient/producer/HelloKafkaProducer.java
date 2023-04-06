@@ -54,11 +54,11 @@ public class HelloKafkaProducer {
         KafkaProducer<String, String> kafkaProducer = new KafkaProducer<>(properties);
         try {
             ProducerRecord<String, String> record;
-            for (int i = 120; i < 140; i++) {
+            for (int i = 0; i < 100; i++) {
                 //key 值决定分区，采用负载均衡（默认分区器）
-                // record = new ProducerRecord<String,String>("test",String.valueOf(i),"haro");
+                record = new ProducerRecord<String,String>("spring-test",String.valueOf(i),"haro");
                 //指定分区
-                record = new ProducerRecord<String,String>("test",2,String.valueOf(i),"haro"+i);
+                // record = new ProducerRecord<String,String>("spring-test",2,String.valueOf(i),"haro"+i);
                 kafkaProducer.send(record);//发送并忘记（会有重试）
             }
         }catch (Exception e) {
