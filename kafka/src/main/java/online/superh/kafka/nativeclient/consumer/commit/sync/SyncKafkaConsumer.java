@@ -1,4 +1,4 @@
-package online.superh.kafka.nativeclient.consumer.sync;
+package online.superh.kafka.nativeclient.consumer.commit.sync;
 
 import org.apache.kafka.clients.consumer.*;
 import org.apache.kafka.common.serialization.StringDeserializer;

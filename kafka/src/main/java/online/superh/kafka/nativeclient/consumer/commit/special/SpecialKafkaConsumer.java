@@ -1,4 +1,4 @@
-package online.superh.kafka.nativeclient.consumer.special;
+package online.superh.kafka.nativeclient.consumer.commit.special;
 
 import org.apache.kafka.clients.consumer.*;
 import org.apache.kafka.common.TopicPartition;

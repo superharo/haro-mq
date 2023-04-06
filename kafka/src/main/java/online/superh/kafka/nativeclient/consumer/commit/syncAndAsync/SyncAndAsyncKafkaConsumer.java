@@ -1,4 +1,4 @@
-package online.superh.kafka.nativeclient.consumer.syncAndAsync;
+package online.superh.kafka.nativeclient.consumer.commit.syncAndAsync;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
