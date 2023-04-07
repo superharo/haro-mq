@@ -3,6 +3,7 @@ package online.superh.kafka.controller;
 import online.superh.kafka.common.KafkaTopic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,6 +22,7 @@ public class TestController {
     private KafkaTemplate<Object,Object> kafkaTemplate;
 
     @GetMapping("/send/{msg}")
+    @Transactional
     public String sendMessage(@PathVariable("msg") String msg) {
         kafkaTemplate.send(KafkaTopic.SPRING_TEST_TOPIC, msg);
         return "发送成功";

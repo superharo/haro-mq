@@ -6,6 +6,7 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -32,6 +33,7 @@ public class TestKafkaListener {
         批量处理
      */
     @KafkaListener(topics = KafkaTopic.SPRING_TEST_TOPIC,concurrency ="2")
+    @Transactional
     public void onMessageBatch(List<ConsumerRecord<?, ?>> consumerRecords, Acknowledgment ack) {
         log.error("批量拉取数量：{}",consumerRecords.size());
         for (ConsumerRecord<?, ?> consumerRecord : consumerRecords) {

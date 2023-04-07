@@ -4,5 +4,5 @@ spring:
   application:
     name: haro-kafka
   profiles:
-    active: test
+    active: dev
 #kafka配置
